@@ -28,5 +28,3 @@ Create, edit, search, and import dishes in one place — from everyday meals to 
 * **🔒 Secure Storage**: User accounts and recipes are stored safely on the server.
 
 ---
-
-Хочешь, я ещё добавлю секции про **Tech Stack** и **Deployment**, как в документации, или оставить минималистично как в этом примере?
