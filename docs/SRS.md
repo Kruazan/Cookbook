@@ -159,6 +159,34 @@
 
 ---
 
+## 4 Эскизы интерфейса
+
+### 4.1 Главный экран
+
+<img width="1261" height="707" alt="image" src="https://github.com/user-attachments/assets/c13d38fc-41af-4472-84c7-bdaed98ecd02" />
+
+### 4.2 Окно регистрации
+
+<img width="1254" height="707" alt="image" src="https://github.com/user-attachments/assets/181e82a2-b8fe-4be5-8a6c-ce973f3e5b67" />
+
+### 4.3 Окно входа
+
+<img width="1260" height="708" alt="image" src="https://github.com/user-attachments/assets/da375e36-ccc3-4d25-b1b8-2b3711123506" />
+
+### 4.4 Окно создания рецепта
+
+<img width="1259" height="709" alt="image" src="https://github.com/user-attachments/assets/fc02c83e-81f4-48e1-8508-af31a758b34d" />
+
+### 4.5 Окно добавления операции
+
+<img width="1258" height="709" alt="image" src="https://github.com/user-attachments/assets/341620c2-8bd6-44e9-97e4-3968a83a6ae6" />
+
+### 4.6 Окно приготовления
+
+<img width="1257" height="708" alt="image" src="https://github.com/user-attachments/assets/087bbfd7-ce2c-4cbd-afa1-0c9d2d73dad0" />
+
+---
+
 ## 5 Технологический стек
 
 | Компонент | Технология |
