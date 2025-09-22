@@ -7,7 +7,7 @@ graph TB
 
     %% ---------- Frontend ----------
     subgraph "🌐 Frontend"
-        U --> |HTTPS| RA[React App TypeScript]
+        U --> |HTTPS| RA[React App / Razor Pages]
         RA --> |REST API| GLB
     end
 
@@ -15,59 +15,56 @@ graph TB
     GLB[Nginx Load Balancer]
 
     %% ---------- Backend ----------
-    subgraph "⚙️ Spring Boot Backend"
-        GLB --> |/api/*| SB[Spring Boot Tomcat]
-        SB --> CC[CategoryController]
-        SB --> PC[ProductController]
-        SB --> OC[OrderController]
-        SB --> UC[UserController]
-        SB --> LC[LogController]
+    subgraph "⚙️ ASP.NET Core Backend"
+        GLB --> |/api/*| API[ASP.NET Core Controllers]
+        API --> RC[RecipeController]
+        API --> UC[UserController]
+        API --> IC[ImportController]
+        API --> AC[AuthController]
     end
 
     %% ---------- Services ----------
     subgraph "🔧 Сервисный слой"
-        CC --> CS[CategoryService]
-        PC --> PS[ProductService]
-        OC --> OS[OrderService]
+        RC --> RS[RecipeService]
         UC --> US[UserService]
-        LC --> LS[LogService]
+        IC --> IS[ImportService]
+        AC --> AS[AuthService]
     end
 
     %% ---------- Repositories ----------
     subgraph "🗃️ Репозитории"
-        CS --> CR[CategoryRepository]
-        PS --> PR[ProductRepository]
-        OS --> OR[OrderRepository]
+        RS --> RR[RecipeRepository]
         US --> UR[UserRepository]
+        IS --> IR[ImportRepository]
     end
 
     %% ---------- База данных ----------
     subgraph "🐘 PostgreSQL"
-        CR --> DB[(PostgreSQL)]
-        PR --> DB
-        OR --> DB
+        RR --> DB[(PostgreSQL)]
         UR --> DB
+        IR --> DB
     end
 
     %% ---------- Deployment ----------
     subgraph "🐳 Deployment"
         RA -.-> STATIC[Static Files CDN]
-        SB -.-> DOCK[Docker Image]
+        API -.-> DOCK[Docker Image]
         DB -.-> VOL[Persistent Volume]
     end
 
     %% ---------- Цветовые классы ----------
     classDef frontend fill:#61dafb,stroke:#282c34,color:#000
-    classDef backend fill:#6db33f,stroke:#fff,color:#000
+    classDef backend fill:#178600,stroke:#fff,color:#fff
     classDef service fill:#ffd966,stroke:#000,color:#000
     classDef repo fill:#9fc5e8,stroke:#000,color:#000
     classDef db fill:#336791,stroke:#fff,color:#fff
     classDef deployment fill:#239aef,stroke:#fff,color:#fff
 
     class RA,GLB frontend
-    class SB,CC,PC,OC,UC,LC backend
-    class CS,PS,OS,US,LS service
-    class CR,PR,OR,UR repo
+    class API,RC,UC,IC,AC backend
+    class RS,US,IS,AS service
+    class RR,UR,IR repo
     class DB db
     class STATIC,DOCK,VOL deployment
+
 ```
