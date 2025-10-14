@@ -1,70 +1,87 @@
+
+## 2. architecture.md
+```markdown
+# 🏗️ Архитектура Cookbook
+
 ```mermaid
 graph TB
-    %% ---------- Пользователь ----------
     subgraph "👤 Пользователь"
         U[Пользователь]
     end
 
     %% ---------- Frontend ----------
-    subgraph "🌐 Frontend"
-        U --> |HTTPS| RA[React App / Razor Pages]
-        RA --> |REST API| GLB
+    subgraph "🌐 Frontend (Blazor WebAssembly)"
+        U --> |HTTPS| BA[Blazor App<br/>Cookbook]
+        BA --> |REST API| GLB
     end
 
-    %% ---------- Gateway / LB ----------
-    GLB[Nginx Load Balancer]
+    %% ---------- Gateway ----------
+    GLB[Kestrel<br/>Web Server]
 
     %% ---------- Backend ----------
     subgraph "⚙️ ASP.NET Core Backend"
-        GLB --> |/api/*| API[ASP.NET Core Controllers]
-        API --> RC[RecipeController]
-        API --> UC[UserController]
-        API --> IC[ImportController]
-        API --> AC[AuthController]
+        GLB --> |/api/*| SB[ASP.NET Core]
+        SB --> RC[Recipe<br/>Controller]
+        SB --> UC[User<br/>Controller]
+        SB --> CC[Category<br/>Controller]
+        SB --> TC[Tag<br/>Controller]
+        SB --> FC[Favorite<br/>Controller]
     end
 
     %% ---------- Services ----------
     subgraph "🔧 Сервисный слой"
-        RC --> RS[RecipeService]
-        UC --> US[UserService]
-        IC --> IS[ImportService]
-        AC --> AS[AuthService]
+        RC --> RS[Recipe Service]
+        UC --> US[User Service]
+        CC --> CS[Category Service]
+        TC --> TS[Tag Service]
+        FC --> FS[Favorite Service]
+        
+        RS --> PS[Parsing Service<br/>Web Import]
+        RS --> CMS[Cooking Mode Service]
     end
 
     %% ---------- Repositories ----------
-    subgraph "🗃️ Репозитории"
-        RS --> RR[RecipeRepository]
-        US --> UR[UserRepository]
-        IS --> IR[ImportRepository]
+    subgraph "🗃️ Доступ к данным"
+        RS --> RR[(Recipe<br/>Repository)]
+        US --> UR[(User<br/>Repository)]
+        CS --> CR[(Category<br/>Repository)]
+        TS --> TR[(Tag<br/>Repository)]
+        FS --> FR[(Favorite<br/>Repository)]
     end
 
     %% ---------- База данных ----------
     subgraph "🐘 PostgreSQL"
-        RR --> DB[(PostgreSQL)]
+        RR --> DB[(PostgreSQL<br/>CookbookDB)]
         UR --> DB
-        IR --> DB
+        CR --> DB
+        TR --> DB
+        FR --> DB
+    end
+
+    %% ---------- Внешние связи ----------
+    subgraph "🔗 Связи сущностей"
+        RS -.-> |ManyToOne| US
+        RS -.-> |ManyToOne| CS
+        RS -.-> |ManyToMany| TS
+        FS -.-> |ManyToOne| US
+        FS -.-> |ManyToOne| RS
     end
 
     %% ---------- Deployment ----------
     subgraph "🐳 Deployment"
-        RA -.-> STATIC[Static Files CDN]
-        API -.-> DOCK[Docker Image]
-        DB -.-> VOL[Persistent Volume]
+        BA -.-> |publish| STAT[Static Files<br/>Web Host]
+        SB -.-> |container| DOCK[Docker<br/>Image]
+        DB -.-> |volume| VOL[(Persistent<br/>Volume)]
     end
 
-    %% ---------- Цветовые классы ----------
     classDef frontend fill:#61dafb,stroke:#282c34,color:#000
-    classDef backend fill:#178600,stroke:#fff,color:#fff
-    classDef service fill:#ffd966,stroke:#000,color:#000
-    classDef repo fill:#9fc5e8,stroke:#000,color:#000
+    classDef backend fill:#6db33f,stroke:#fff,color:#000
     classDef db fill:#336791,stroke:#fff,color:#fff
+    classDef relations fill:#ff6b6b,stroke:#000,color:#000
     classDef deployment fill:#239aef,stroke:#fff,color:#fff
 
-    class RA,GLB frontend
-    class API,RC,UC,IC,AC backend
-    class RS,US,IS,AS service
-    class RR,UR,IR repo
-    class DB db
-    class STATIC,DOCK,VOL deployment
-
-```
+    class BA frontend
+    class SB,RC,UC,CC,TC,FC,RS,US,CS,TS,FS,PS,CMS backend
+    class DB,RR,UR,CR,TR,FR,VOL db
+    class relations relations
+    class STAT,DOCK deployment
