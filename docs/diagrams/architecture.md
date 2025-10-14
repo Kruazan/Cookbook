@@ -1,6 +1,3 @@
-
-## 2. architecture.md
-```markdown
 # 🏗️ Архитектура Cookbook
 
 ```mermaid
