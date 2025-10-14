@@ -62,7 +62,7 @@ sequenceDiagram
     end
 ```
 
-###3. Режим приготовления
+### 3. Режим приготовления
 ```mermaid
 sequenceDiagram
     participant User as Пользователь
