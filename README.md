@@ -2,7 +2,7 @@
 
 <div align="center">
 
-# 📖 Cookbook
+# 📖 Cockbook
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-blueviolet.svg)](https://dotnet.microsoft.com/)
 [![ASP.NET Core](https://img.shields.io/badge/ASP.NET%20Core-8.0-green.svg)](https://learn.microsoft.com/aspnet/core)
